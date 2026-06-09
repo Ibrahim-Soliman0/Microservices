@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="807f0d04-0b76-4063-a8c6-7ba2b81dc83c" name="Changes" comment="Add exceptions and global exception handler">
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/client/InventoryClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/config/AppConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/controller/OrderController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/messaging/OrderPublisher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/OrderServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/OrderServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/dto/order/OrderItemRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/dto/order/OrderItemRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_D:/ITI/Intake46-Java/Microservices/Lab/Microservices" value="3EtcdInr2kcUf31WQGjqU3bdSNj" />
+    </persistenceIdMap>
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="30" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;adhamkhaled312&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Ibrahim-Soliman0/Microservices.git&quot;,
+    &quot;accountId&quot;: &quot;4e2fc7be-965a-4225-a8e1-e556dfb03037&quot;
+  }
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="3.1101697608754013E-14" />
+      <entry key="MS500" value="0.0019886429682902758" />
+      <entry key="S2" value="0.21118023270365294" />
+      <entry key="S5" value="0.5552347573212025" />
+      <entry key="S10" value="1.0370050439417462" />
+      <entry key="S30" value="3.476130387347742" />
+      <entry key="S60" value="5.684543901665228" />
+      <entry key="M2" value="7.8969611423905794" />
+      <entry key="M5" value="14.742354499042932" />
+      <entry key="M10" value="30.817889944412336" />
+      <entry key="M15" value="47.59037583524102" />
+      <entry key="M30" value="88.4981309152024" />
+      <entry key="H1" value="144.47392837134467" />
+      <entry key="H2" value="211.32422198427736" />
+      <entry key="H4" value="271.6578518090253" />
+      <entry key="D1" value="348.47363071810287" />
+      <entry key="W1" value="365.1087667321071" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="1.0000000430324443" />
+      <entry key="MS500" value="1.03475454970794" />
+      <entry key="S2" value="1.7180226826709646" />
+      <entry key="S5" value="2.8932846960307357" />
+      <entry key="S10" value="4.643926899541987" />
+      <entry key="S30" value="10.096884810298771" />
+      <entry key="S60" value="14.41971586258185" />
+      <entry key="M2" value="18.514680857115618" />
+      <entry key="M5" value="28.38167650832523" />
+      <entry key="M10" value="47.03182384709964" />
+      <entry key="M15" value="63.832166081218354" />
+      <entry key="M30" value="99.05021010903162" />
+      <entry key="H1" value="136.33016584116092" />
+      <entry key="H2" value="170.8487776330141" />
+      <entry key="H4" value="197.78882738309093" />
+      <entry key="D1" value="229.30423014668034" />
+      <entry key="W1" value="235.86686660888276" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.03257705502653726" />
+      <entry key="MS500" value="0.5093265803823569" />
+      <entry key="S2" value="1.5232065449092842" />
+      <entry key="S5" value="3.12589470545099" />
+      <entry key="S10" value="5.376567408865125" />
+      <entry key="S30" value="13.26250148664966" />
+      <entry key="S60" value="19.859128498699825" />
+      <entry key="M2" value="26.24710272341848" />
+      <entry key="M5" value="43.019442954693034" />
+      <entry key="M10" value="77.75809566941362" />
+      <entry key="M15" value="111.33641579815222" />
+      <entry key="M30" value="187.4780027165202" />
+      <entry key="H1" value="280.75377250413936" />
+      <entry key="H2" value="382.1404671478778" />
+      <entry key="H4" value="469.4274520586181" />
+      <entry key="D1" value="577.7740698277686" />
+      <entry key="W1" value="600.9750741970757" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3EtcdInr2kcUf31WQGjqU3bdSNj" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.OrderServiceApplication.executor": "Run",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ide.FileNotInSourceRootChecker.no.check": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "order-service",
+    "git.auto.fetch.suggestion.counter": "1",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/ITI/Intake46-Java/Microservices/Lab/Microservices",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.1150748",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="OrderServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="order-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="gov.iti.jets.orderservice.OrderServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="807f0d04-0b76-4063-a8c6-7ba2b81dc83c" name="Changes" comment="" />
+      <created>1781001394754</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1781001394754</updated>
+      <workItem from="1781001394758" duration="11380000" />
+      <workItem from="1781020938020" duration="4864000" />
+    </task>
+    <task id="LOCAL-00001" summary="add order-service project with model and repository layers">
+      <option name="closed" value="true" />
+      <created>1781011620924</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1781011620924</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Change order item table name">
+      <option name="closed" value="true" />
+      <created>1781014030134</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1781014030134</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add rabbit mq configurations">
+      <option name="closed" value="true" />
+      <created>1781016207958</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1781016207958</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add DTOs with validations for service to service communication">
+      <option name="closed" value="true" />
+      <created>1781016426573</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1781016426573</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add exceptions and global exception handler">
+      <option name="closed" value="true" />
+      <created>1781022708488</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1781022708488</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add order-service project with model and repository layers" />
+    <MESSAGE value="Change order item table name" />
+    <MESSAGE value="add rabbit mq configurations" />
+    <MESSAGE value="Add DTOs with validations for service to service communication" />
+    <MESSAGE value="Add exceptions and global exception handler" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add exceptions and global exception handler" />
+  </component>
+</project>
