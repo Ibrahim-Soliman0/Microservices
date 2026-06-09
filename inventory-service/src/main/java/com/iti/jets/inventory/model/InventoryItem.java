@@ -3,12 +3,14 @@ package com.iti.jets.inventory.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "inventory_item", schema = "inventorydb")
 public class InventoryItem {
     @Id
@@ -31,7 +33,7 @@ public class InventoryItem {
 
     @NotNull
     @Column(name = "unit_price", nullable = false)
-    private Integer unitPrice;
+    private Double unitPrice;
 
 
 }

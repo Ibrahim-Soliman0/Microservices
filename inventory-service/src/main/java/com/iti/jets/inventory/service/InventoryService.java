@@ -2,6 +2,7 @@ package com.iti.jets.inventory.service;
 
 
 import com.iti.jets.inventory.dto.*;
+import com.iti.jets.inventory.exception.*;
 import com.iti.jets.inventory.dto.InventoryCheckRequest;
 import com.iti.jets.inventory.dto.InventoryCheckResponse;
 import com.iti.jets.inventory.model.InventoryItem;
@@ -34,7 +35,7 @@ public class InventoryService {
                     return InventoryCheckResponse.builder()
                             .productId(Long.valueOf(item.getProductId()))
                             .productName(item.getProductName())
-                            .unitPrice(Double.valueOf(item.getUnitPrice()))
+                            .unitPrice(item.getUnitPrice())
                             .available(available)
                             .message(available
                                     ? "In stock"
@@ -90,7 +91,7 @@ public class InventoryService {
         }
 
         InventoryItem item = InventoryItem.builder()
-                .productId(request.getProductId())
+                .productId(request.getProductId().intValue())
                 .productName(request.getProductName())
                 .quantity(request.getQuantity())
                 .unitPrice(request.getUnitPrice())
@@ -140,7 +141,7 @@ public class InventoryService {
                 .productId(Long.valueOf(item.getProductId()))
                 .productName(item.getProductName())
                 .quantity(item.getQuantity())
-                .unitPrice(Double.valueOf(item.getUnitPrice()))
+                .unitPrice(item.getUnitPrice())
                 .build();
     }
 }
