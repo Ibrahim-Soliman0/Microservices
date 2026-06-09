@@ -1,18 +1,22 @@
 server:
-  port: 8085
-
-jwt:
-  secret: mysecretkeyformicroserviceapp1234
-  expiration: 3600000
-  refresh-expiration: 604800000
+  port: 8083
 
 spring:
+  application:
+    name: jwt-auth-service
+  cloud:
+    consul:
+      host: ${CONSUL_HOST:localhost}
+      port: 8500
+      discovery:
+        instance-id: ${spring.application.name}:${random.value}
+        prefer-ip-address: true
+        health-check-path: /actuator/health
   datasource:
-    url: jdbc:mysql://localhost:3306/jwt_db
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/jwt_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
     username: root
-    password: root
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -20,3 +24,18 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+
+jwt:
+  secret: mysecretkeyformicroserviceapp1234
+  expiration: 3600000
+  refresh-expiration: 604800000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true

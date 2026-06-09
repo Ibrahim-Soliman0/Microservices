@@ -12,11 +12,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserResponse {
 
-    int id;
-    String name;
-    String email;
+    private Long id;
+    private String name;
+    private String email;
+    private String picture;
+    private String provider;
+    private String accessToken;
+    private String refreshToken;
 
     public static UserResponse from(User user) {
-        return UserResponse.builder().id(user.getId()).name(user.getName()).email(user.getEmail()).build();
+        return UserResponse.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .picture(user.getPicture())
+                .provider(user.getProvider())
+                .accessToken(user.getAccessToken())
+                .refreshToken(user.getRefreshToken())
+                .build();
     }
 }

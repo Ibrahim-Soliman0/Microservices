@@ -1,9 +1,8 @@
 package com.iti.jets.user.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -11,27 +10,43 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user", schema = "userdb")
+@Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
-    @Size(max = 100)
-    @NotNull
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String name;
 
-    @Size(max = 100)
-    @NotNull
-    @Column(name = "email", nullable = false, length = 100)
+    @Column(nullable = false, unique = true, length = 100)
     private String email;
 
-    @Size(max = 100)
-    @NotNull
-    @Column(name = "password", nullable = false, length = 100)
-    private String password;
+    @Column(length = 500)
+    private String picture;
 
+    @Column(length = 50)
+    private String provider;
 
+    @Column(columnDefinition = "TEXT")
+    private String accessToken;
+
+    @Column(columnDefinition = "TEXT")
+    private String refreshToken;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime lastLoginAt;
+
+    @PrePersist
+    public void onFirstSave() {
+        this.createdAt = LocalDateTime.now();
+        this.lastLoginAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        this.lastLoginAt = LocalDateTime.now();
+    }
 }

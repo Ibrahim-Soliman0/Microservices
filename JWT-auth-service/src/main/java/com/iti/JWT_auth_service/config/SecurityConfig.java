@@ -18,7 +18,7 @@ public class SecurityConfig {
                         s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/token/**").permitAll()
+                        .requestMatchers("/token/**", "/actuator/**").permitAll()
                         .anyRequest().authenticated()
                 );
         return http.build();

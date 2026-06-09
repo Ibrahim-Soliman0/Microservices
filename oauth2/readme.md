@@ -1,7 +1,7 @@
 ### Auth Service API Endpoints
 
 
-`http://localhost:8081`
+`http://localhost:8085`
 
 
 | Category               | HTTP Method | Endpoint Path            | Purpose / Description                                                                                                 |
@@ -18,7 +18,7 @@
 
 | External Service         | Required Configuration                           | Description                                                                       |
 |:-------------------------|:-------------------------------------------------|:----------------------------------------------------------------------------------|
-| **Google Cloud Console** | `http://localhost:8081/login/oauth2/code/google` | Must be added as an "Authorized redirect URI" in your Google credentials.         |
+| **Google Cloud Console** | `http://localhost:8085/login/oauth2/code/google` | Must be added as an "Authorized redirect URI" in your Google credentials.         |
 | **Eureka Registry**      | `http://localhost:8761/eureka/`                  | The discovery server URL this service registers with on startup.                  |
 | **Token Generator**      | `http://localhost:8082/api/tokens/generate`      | The internal POST endpoint where this app sends the profile to get the final JWT. |
 
@@ -37,5 +37,5 @@ mvn clean spring-boot:run
 ```bash
     mvn clean package -DskipTests
     docker build -t auth-service .
-    docker run -p 8081:8081 auth-service
+    docker run -p 8085:8085 auth-service
 ```
