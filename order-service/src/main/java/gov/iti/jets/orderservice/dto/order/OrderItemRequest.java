@@ -1,0 +1,16 @@
+package gov.iti.jets.orderservice.dto.order;
+
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import lombok.Data;
+
+
+@Data
+class OrderItemRequest {
+    @NotNull(message = "Product ID is required")
+    private Long productId;
+
+    @NotNull(message = "Quantity is required")
+    @Positive(message = "Quantity must be positive")
+    private Integer quantity;
+}
