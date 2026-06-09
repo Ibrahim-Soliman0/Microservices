@@ -20,13 +20,14 @@ public class InventoryController {
 
     private final InventoryService inventoryService;
 
-    @PostMapping("/check")
-    public ResponseEntity<List<InventoryCheckResponse>> checkAvailability(
-            @Valid @RequestBody List<InventoryCheckRequest> requests) {
-        log.info("Stock check requested for {} product(s)", requests.size());
-        return ResponseEntity.ok(inventoryService.checkAvailability(requests));
+    @GetMapping("/check/{productId}")
+    public ResponseEntity<InventoryCheckResponse> checkAvailability(
+            @PathVariable Long productId,
+            @RequestParam Integer quantity) {
+        log.info("Stock check requested for productId={} qty={}", productId, quantity);
+        return ResponseEntity.ok(inventoryService.checkAvailability(productId, quantity));
     }
-    @PostMapping("/decrement")
+    @PutMapping("/decrement")
     public ResponseEntity<Void> decrementStock(
             @Valid @RequestBody DecrementRequest decrementRequest) {
         log.info("Decrement stock requested for {} item(s)", decrementRequest.getItems().size());

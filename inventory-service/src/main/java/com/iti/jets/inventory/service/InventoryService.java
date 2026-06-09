@@ -22,16 +22,10 @@ public class InventoryService {
     private final InventoryItemRepository inventoryItemRepository;
 
     @Transactional(readOnly = true)
-    public List<InventoryCheckResponse> checkAvailability(List<InventoryCheckRequest> requests) {
-        return requests.stream()
-                .map(this::checkSingleItem)
-                .toList();
-    }
-
-    private InventoryCheckResponse checkSingleItem(InventoryCheckRequest request) {
-        return inventoryItemRepository.findByProductId(request.getProductId())
+    public InventoryCheckResponse checkAvailability(Long productId, Integer quantity) {
+        return inventoryItemRepository.findByProductId(productId)
                 .map(item -> {
-                    boolean available = item.getQuantity() >= request.getQuantity();
+                    boolean available = item.getQuantity() >= quantity;
                     return InventoryCheckResponse.builder()
                             .productId(Long.valueOf(item.getProductId()))
                             .productName(item.getProductName())
@@ -43,7 +37,7 @@ public class InventoryService {
                             .build();
                 })
                 .orElseGet(() -> InventoryCheckResponse.builder()
-                        .productId(request.getProductId())
+                        .productId(productId)
                         .available(false)
                         .message("Product not found in inventory")
                         .build());
@@ -67,7 +61,6 @@ public class InventoryService {
             }
         }
 
-        // All checks passed — apply the decrements
         for (InventoryCheckRequest item : items) {
             InventoryItem inventoryItem = inventoryItemRepository
                     .findByProductId(item.getProductId())
@@ -79,10 +72,6 @@ public class InventoryService {
                     item.getProductId(), item.getQuantity(), inventoryItem.getQuantity());
         }
     }
-
-    // -------------------------------------------------------------------------
-    // Management endpoints
-    // -------------------------------------------------------------------------
 
     @Transactional
     public InventoryItemResponse createItem(CreateInventoryItemRequest request) {
