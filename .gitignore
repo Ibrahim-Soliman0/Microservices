@@ -1,0 +1,27 @@
+.idea/
+.ai/
+target/
+target/
+*.class
+*.jar
+*.war
+*.log
+
+.idea/
+*.iml
+.settings/
+.project
+.classpath
+.sonarlint/
+
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Env / secrets
+.env
+.env.local
+
+# Eclipse / IDE
+.factorypath
+.apt_generated
