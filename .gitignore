@@ -1,3 +1,6 @@
+.idea/
+.ai/
+target/
 target/
 *.class
 *.jar
