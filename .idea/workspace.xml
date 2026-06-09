@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="807f0d04-0b76-4063-a8c6-7ba2b81dc83c" name="Changes" comment="Add exceptions and global exception handler">
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/client/InventoryClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/config/AppConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/controller/OrderController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/messaging/OrderPublisher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="807f0d04-0b76-4063-a8c6-7ba2b81dc83c" name="Changes" comment="Replace eureka with consul">
+      <change beforePath="$PROJECT_DIR$/.idea/Microservices.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Microservices.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/OrderServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/OrderServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/dto/order/OrderItemRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/dto/order/OrderItemRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,13 +24,14 @@
     </persistenceIdMap>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="30" />
+    <option name="cachedIndexableFilesCount" value="76" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Dockerfile" />
       </list>
     </option>
   </component>
@@ -65,61 +61,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="3.1101697608754013E-14" />
-      <entry key="MS500" value="0.0019886429682902758" />
-      <entry key="S2" value="0.21118023270365294" />
-      <entry key="S5" value="0.5552347573212025" />
-      <entry key="S10" value="1.0370050439417462" />
-      <entry key="S30" value="3.476130387347742" />
-      <entry key="S60" value="5.684543901665228" />
-      <entry key="M2" value="7.8969611423905794" />
-      <entry key="M5" value="14.742354499042932" />
-      <entry key="M10" value="30.817889944412336" />
-      <entry key="M15" value="47.59037583524102" />
-      <entry key="M30" value="88.4981309152024" />
-      <entry key="H1" value="144.47392837134467" />
-      <entry key="H2" value="211.32422198427736" />
-      <entry key="H4" value="271.6578518090253" />
-      <entry key="D1" value="348.47363071810287" />
-      <entry key="W1" value="365.1087667321071" />
+      <entry key="MS100" value="1.0570739313423865" />
+      <entry key="MS500" value="2.0932214267768883" />
+      <entry key="S2" value="4.543521957083679" />
+      <entry key="S5" value="7.888089175788295" />
+      <entry key="S10" value="12.556451505087349" />
+      <entry key="S30" value="19.801796628618032" />
+      <entry key="S60" value="22.823336814883216" />
+      <entry key="M2" value="25.381465118713393" />
+      <entry key="M5" value="28.760445769314632" />
+      <entry key="M10" value="30.979337252337977" />
+      <entry key="M15" value="33.01677442790696" />
+      <entry key="M30" value="48.42165086473911" />
+      <entry key="H1" value="100.3253349449758" />
+      <entry key="H2" value="192.01593187773045" />
+      <entry key="H4" value="293.16695998639455" />
+      <entry key="D1" value="442.6431676571447" />
+      <entry key="W1" value="477.79435800418753" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0000000430324443" />
-      <entry key="MS500" value="1.03475454970794" />
-      <entry key="S2" value="1.7180226826709646" />
-      <entry key="S5" value="2.8932846960307357" />
-      <entry key="S10" value="4.643926899541987" />
-      <entry key="S30" value="10.096884810298771" />
-      <entry key="S60" value="14.41971586258185" />
-      <entry key="M2" value="18.514680857115618" />
-      <entry key="M5" value="28.38167650832523" />
-      <entry key="M10" value="47.03182384709964" />
-      <entry key="M15" value="63.832166081218354" />
-      <entry key="M30" value="99.05021010903162" />
-      <entry key="H1" value="136.33016584116092" />
-      <entry key="H2" value="170.8487776330141" />
-      <entry key="H4" value="197.78882738309093" />
-      <entry key="D1" value="229.30423014668034" />
-      <entry key="W1" value="235.86686660888276" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="1.4937981065019588E-181" />
+      <entry key="S5" value="4.6743019325179334E-73" />
+      <entry key="S10" value="6.8368866690314E-37" />
+      <entry key="S30" value="8.809531111425082E-13" />
+      <entry key="S60" value="9.385910244310392E-7" />
+      <entry key="M2" value="9.688090754408836E-4" />
+      <entry key="M5" value="0.062315723815251384" />
+      <entry key="M10" value="0.2776716148683995" />
+      <entry key="M15" value="0.843288782376464" />
+      <entry key="M30" value="8.987335924774555" />
+      <entry key="H1" value="40.974234405445515" />
+      <entry key="H2" value="95.0265162364181" />
+      <entry key="H4" value="149.9226434171395" />
+      <entry key="D1" value="225.08769457254573" />
+      <entry key="W1" value="242.0321522213077" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.03257705502653726" />
-      <entry key="MS500" value="0.5093265803823569" />
-      <entry key="S2" value="1.5232065449092842" />
-      <entry key="S5" value="3.12589470545099" />
-      <entry key="S10" value="5.376567408865125" />
-      <entry key="S30" value="13.26250148664966" />
-      <entry key="S60" value="19.859128498699825" />
-      <entry key="M2" value="26.24710272341848" />
-      <entry key="M5" value="43.019442954693034" />
-      <entry key="M10" value="77.75809566941362" />
-      <entry key="M15" value="111.33641579815222" />
-      <entry key="M30" value="187.4780027165202" />
-      <entry key="H1" value="280.75377250413936" />
-      <entry key="H2" value="382.1404671478778" />
-      <entry key="H4" value="469.4274520586181" />
-      <entry key="D1" value="577.7740698277686" />
-      <entry key="W1" value="600.9750741970757" />
+      <entry key="MS100" value="1.0206973783559428" />
+      <entry key="MS500" value="2.0775858690083706" />
+      <entry key="S2" value="4.53334730141684" />
+      <entry key="S5" value="7.874142035842349" />
+      <entry key="S10" value="12.541062732798961" />
+      <entry key="S30" value="19.79229693529026" />
+      <entry key="S60" value="22.81746914632637" />
+      <entry key="M2" value="25.37853991129605" />
+      <entry key="M5" value="28.820324074838275" />
+      <entry key="M10" value="31.25527590423359" />
+      <entry key="M15" value="33.85812424150368" />
+      <entry key="M30" value="57.40212434040301" />
+      <entry key="H1" value="141.28412563472247" />
+      <entry key="H2" value="287.02416905238664" />
+      <entry key="H4" value="443.0749344831748" />
+      <entry key="D1" value="667.7271255685106" />
+      <entry key="W1" value="719.8259343038154" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -133,12 +129,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -147,7 +145,7 @@
     "com.intellij.ide.FileNotInSourceRootChecker.no.check": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "order-service",
-    "git.auto.fetch.suggestion.counter": "1",
+    "git.auto.fetch.suggestion.counter": "3",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
@@ -189,7 +187,8 @@
       <option name="presentableId" value="Default" />
       <updated>1781001394754</updated>
       <workItem from="1781001394758" duration="11380000" />
-      <workItem from="1781020938020" duration="4864000" />
+      <workItem from="1781020938020" duration="7194000" />
+      <workItem from="1781030038594" duration="4485000" />
     </task>
     <task id="LOCAL-00001" summary="add order-service project with model and repository layers">
       <option name="closed" value="true" />
@@ -231,7 +230,71 @@
       <option name="project" value="LOCAL" />
       <updated>1781022708488</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Implement synchronous communication with inventory service">
+      <option name="closed" value="true" />
+      <created>1781026046780</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1781026046780</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Implement asynchronous communication with invoice service">
+      <option name="closed" value="true" />
+      <created>1781026067561</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1781026067561</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add needed dependencies and configs">
+      <option name="closed" value="true" />
+      <created>1781026089604</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1781026089604</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Implement order service">
+      <option name="closed" value="true" />
+      <created>1781026102161</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1781026102161</updated>
+    </task>
+    <task id="LOCAL-00010" summary="implement order controller">
+      <option name="closed" value="true" />
+      <created>1781026111244</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1781026111244</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Add docker file">
+      <option name="closed" value="true" />
+      <created>1781026776621</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1781026776621</updated>
+    </task>
+    <task id="LOCAL-00012" summary="enable eureka client">
+      <option name="closed" value="true" />
+      <created>1781027018380</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1781027018380</updated>
+    </task>
+    <task id="LOCAL-00013" summary="add default values for some properties">
+      <option name="closed" value="true" />
+      <created>1781027315180</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1781027315180</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -266,6 +329,14 @@
     <MESSAGE value="add rabbit mq configurations" />
     <MESSAGE value="Add DTOs with validations for service to service communication" />
     <MESSAGE value="Add exceptions and global exception handler" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add exceptions and global exception handler" />
+    <MESSAGE value="Implement synchronous communication with inventory service" />
+    <MESSAGE value="Implement asynchronous communication with invoice service" />
+    <MESSAGE value="Add needed dependencies and configs" />
+    <MESSAGE value="Implement order service" />
+    <MESSAGE value="implement order controller" />
+    <MESSAGE value="Add docker file" />
+    <MESSAGE value="enable eureka client" />
+    <MESSAGE value="add default values for some properties" />
+    <option name="LAST_COMMIT_MESSAGE" value="add default values for some properties" />
   </component>
 </project>
