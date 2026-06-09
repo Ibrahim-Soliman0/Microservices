@@ -100,7 +100,7 @@ services:
 
 
   rabbitmq:
-    image: rabbitmq:3-management
+    image: rabbitmq:4.3.1-management
     container_name: rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: root
