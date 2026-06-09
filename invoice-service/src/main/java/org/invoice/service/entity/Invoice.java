@@ -1,10 +1,17 @@
 package org.invoice.service.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
+@Table(name ="invoices")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Invoice {
 
     @Id
@@ -16,6 +23,8 @@ public class Invoice {
 
     private Long userId;
 
-    @OneToMany
+    private Double totalPrice;
+
+    @OneToMany(mappedBy = "invoice", fetch = FetchType.EAGER)
     private List<InvoiceItem> invoiceItem;
 }
