@@ -4,13 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="807f0d04-0b76-4063-a8c6-7ba2b81dc83c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Microservices.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/model/Order.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/model/OrderItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/model/OrderStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/repository/OrderRepository.java" afterDir="false" />
+    <list default="true" id="807f0d04-0b76-4063-a8c6-7ba2b81dc83c" name="Changes" comment="Add exceptions and global exception handler">
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/client/InventoryClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/config/AppConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/controller/OrderController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/messaging/OrderPublisher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/OrderServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/OrderServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/dto/order/OrderItemRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/gov/iti/jets/orderservice/dto/order/OrderItemRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +29,8 @@
     </persistenceIdMap>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="5" />
+    <option name="cachedIndexableFilesCount" value="30" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -40,85 +47,85 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "adhamkhaled312"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;adhamkhaled312&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Ibrahim-Soliman0/Microservices.git",
-    "accountId": "4e2fc7be-965a-4225-a8e1-e556dfb03037"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Ibrahim-Soliman0/Microservices.git&quot;,
+    &quot;accountId&quot;: &quot;4e2fc7be-965a-4225-a8e1-e556dfb03037&quot;
   }
-}]]></component>
+}</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.002777660586577" />
-      <entry key="MS500" value="1.5556363781475375" />
-      <entry key="S2" value="3.3972126123347164" />
-      <entry key="S5" value="5.085307926711203" />
-      <entry key="S10" value="6.43192491393518" />
-      <entry key="S30" value="7.94121024290622" />
-      <entry key="S60" value="8.596773554219045" />
-      <entry key="M2" value="10.259094520860058" />
-      <entry key="M5" value="17.25505856837757" />
-      <entry key="M10" value="26.82904296929199" />
-      <entry key="M15" value="33.01003586679808" />
-      <entry key="M30" value="42.15165491865267" />
-      <entry key="H1" value="48.34113705448458" />
-      <entry key="H2" value="51.964342548578024" />
-      <entry key="H4" value="53.927475148758504" />
-      <entry key="D1" value="55.64669957752228" />
-      <entry key="W1" value="55.94933173517477" />
+      <entry key="MS100" value="3.1101697608754013E-14" />
+      <entry key="MS500" value="0.0019886429682902758" />
+      <entry key="S2" value="0.21118023270365294" />
+      <entry key="S5" value="0.5552347573212025" />
+      <entry key="S10" value="1.0370050439417462" />
+      <entry key="S30" value="3.476130387347742" />
+      <entry key="S60" value="5.684543901665228" />
+      <entry key="M2" value="7.8969611423905794" />
+      <entry key="M5" value="14.742354499042932" />
+      <entry key="M10" value="30.817889944412336" />
+      <entry key="M15" value="47.59037583524102" />
+      <entry key="M30" value="88.4981309152024" />
+      <entry key="H1" value="144.47392837134467" />
+      <entry key="H2" value="211.32422198427736" />
+      <entry key="H4" value="271.6578518090253" />
+      <entry key="D1" value="348.47363071810287" />
+      <entry key="W1" value="365.1087667321071" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.1197193210545407E-12" />
-      <entry key="MS500" value="0.0040721318782856305" />
-      <entry key="S2" value="0.25261286162169094" />
-      <entry key="S5" value="0.5767428025300111" />
-      <entry key="S10" value="0.7594358458369141" />
-      <entry key="S30" value="0.9155548945628816" />
-      <entry key="S60" value="1.1231938337559064" />
-      <entry key="M2" value="2.4936069389386715" />
-      <entry key="M5" value="7.847755993160777" />
-      <entry key="M10" value="12.851281559730623" />
-      <entry key="M15" value="15.303201823920503" />
-      <entry key="M30" value="18.308149335543245" />
-      <entry key="H1" value="20.05860738858836" />
-      <entry key="H2" value="21.004113611875727" />
-      <entry key="H4" value="21.4955855186502" />
-      <entry key="D1" value="21.915016974564498" />
-      <entry key="W1" value="21.987836985040214" />
+      <entry key="MS100" value="1.0000000430324443" />
+      <entry key="MS500" value="1.03475454970794" />
+      <entry key="S2" value="1.7180226826709646" />
+      <entry key="S5" value="2.8932846960307357" />
+      <entry key="S10" value="4.643926899541987" />
+      <entry key="S30" value="10.096884810298771" />
+      <entry key="S60" value="14.41971586258185" />
+      <entry key="M2" value="18.514680857115618" />
+      <entry key="M5" value="28.38167650832523" />
+      <entry key="M10" value="47.03182384709964" />
+      <entry key="M15" value="63.832166081218354" />
+      <entry key="M30" value="99.05021010903162" />
+      <entry key="H1" value="136.33016584116092" />
+      <entry key="H2" value="170.8487776330141" />
+      <entry key="H4" value="197.78882738309093" />
+      <entry key="D1" value="229.30423014668034" />
+      <entry key="W1" value="235.86686660888276" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.6088802023363662" />
-      <entry key="MS500" value="1.3697065579236094" />
-      <entry key="S2" value="3.278795715996021" />
-      <entry key="S5" value="5.224813983296936" />
-      <entry key="S10" value="6.835095562547647" />
-      <entry key="S30" value="8.684843681028685" />
-      <entry key="S60" value="9.620996508861424" />
-      <entry key="M2" value="12.684759654550886" />
-      <entry key="M5" value="25.05103288560307" />
-      <entry key="M10" value="39.643286843110864" />
-      <entry key="M15" value="48.28491416808173" />
-      <entry key="M30" value="60.44341389081933" />
-      <entry key="H1" value="68.3908985913905" />
-      <entry key="H2" value="72.96385719762416" />
-      <entry key="H4" value="75.42071538711065" />
-      <entry key="D1" value="77.56131915330977" />
-      <entry key="W1" value="77.93711178722066" />
+      <entry key="MS100" value="0.03257705502653726" />
+      <entry key="MS500" value="0.5093265803823569" />
+      <entry key="S2" value="1.5232065449092842" />
+      <entry key="S5" value="3.12589470545099" />
+      <entry key="S10" value="5.376567408865125" />
+      <entry key="S30" value="13.26250148664966" />
+      <entry key="S60" value="19.859128498699825" />
+      <entry key="M2" value="26.24710272341848" />
+      <entry key="M5" value="43.019442954693034" />
+      <entry key="M10" value="77.75809566941362" />
+      <entry key="M15" value="111.33641579815222" />
+      <entry key="M30" value="187.4780027165202" />
+      <entry key="H1" value="280.75377250413936" />
+      <entry key="H2" value="382.1404671478778" />
+      <entry key="H4" value="469.4274520586181" />
+      <entry key="D1" value="577.7740698277686" />
+      <entry key="W1" value="600.9750741970757" />
     </decayedShown>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3,
-  "fromUser": false
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3EtcdInr2kcUf31WQGjqU3bdSNj" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -126,12 +133,18 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.OrderServiceApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ide.FileNotInSourceRootChecker.no.check": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "order-service",
     "git.auto.fetch.suggestion.counter": "1",
@@ -145,8 +158,8 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.1150748",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -175,8 +188,50 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1781001394754</updated>
-      <workItem from="1781001394758" duration="4692000" />
+      <workItem from="1781001394758" duration="11380000" />
+      <workItem from="1781020938020" duration="4864000" />
     </task>
+    <task id="LOCAL-00001" summary="add order-service project with model and repository layers">
+      <option name="closed" value="true" />
+      <created>1781011620924</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1781011620924</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Change order item table name">
+      <option name="closed" value="true" />
+      <created>1781014030134</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1781014030134</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add rabbit mq configurations">
+      <option name="closed" value="true" />
+      <created>1781016207958</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1781016207958</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add DTOs with validations for service to service communication">
+      <option name="closed" value="true" />
+      <created>1781016426573</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1781016426573</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add exceptions and global exception handler">
+      <option name="closed" value="true" />
+      <created>1781022708488</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1781022708488</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,5 +259,13 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add order-service project with model and repository layers" />
+    <MESSAGE value="Change order item table name" />
+    <MESSAGE value="add rabbit mq configurations" />
+    <MESSAGE value="Add DTOs with validations for service to service communication" />
+    <MESSAGE value="Add exceptions and global exception handler" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add exceptions and global exception handler" />
   </component>
 </project>
