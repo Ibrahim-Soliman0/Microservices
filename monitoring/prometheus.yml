@@ -13,6 +13,6 @@ scrape_configs:
       - targets:
           - 'discovery-service:8501'
           - 'gateway-service:8060'
-          - 'order-service:8081'
+          - 'order-service:8082'
           - 'inventory-service:8082'
  
