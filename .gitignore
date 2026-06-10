@@ -1,7 +1,7 @@
 .idea/
 .ai/
 target/
-target/
+**/target/
 *.class
 *.jar
 *.war
