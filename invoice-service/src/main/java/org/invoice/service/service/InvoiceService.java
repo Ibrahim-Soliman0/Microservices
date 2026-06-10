@@ -16,54 +16,60 @@ import java.util.List;
 @AllArgsConstructor
 public class InvoiceService {
 
-    private InvoiceRepository invoiceRepository;
+  private InvoiceRepository invoiceRepository;
 
-    private InvoiceItemRepository invoiceItemRepository;
+  private InvoiceItemRepository invoiceItemRepository;
 
-    public List<Invoice> getAllInvoicesByUserId(Long userId) {
+  public List<Invoice> getAllInvoicesByUserId(Long userId) {
 
-        return invoiceRepository.getAllByUserId(userId);
+    return invoiceRepository.getAllByUserId(userId);
+  }
+
+  public Invoice getInvoiceById(Long invoiceId) {
+
+    Invoice invoice;
+
+    try {
+      // needs to be updated
+      invoice = invoiceRepository.getReferenceById(invoiceId);
+    } catch (EntityNotFoundException entityNotFoundException) {
+      throw new InvoiceNotFoundException("Invoice with id[%s] not found".formatted(invoiceId));
     }
 
-    public Invoice getInvoiceById(Long invoiceId) {
+    return invoice;
+  }
 
-        Invoice invoice;
+  public Long createInvoice(OrderEvent orderEvent) {
 
-        try {
-            invoice = invoiceRepository.getReferenceById(invoiceId);
-        } catch (EntityNotFoundException entityNotFoundException) {
-            throw new InvoiceNotFoundException("Invoice with id[%s] not found".formatted(invoiceId));
-        }
-
-        return invoice;
+    var existing = invoiceRepository.findByOrderId(orderEvent.getOrderId());
+    if (existing.isPresent()) {
+      return existing.get().getId();
     }
 
-    public Long createInvoice(OrderEvent orderEvent) {
+    Invoice toAddInvoice = new Invoice();
+    toAddInvoice.setOrderId(orderEvent.getOrderId());
+    toAddInvoice.setUserId(orderEvent.getUserId());
+    toAddInvoice.setTotalPrice(orderEvent.getTotalPrice());
 
-        Invoice toAddInvoice = new Invoice();
-        toAddInvoice.setOrderId(orderEvent.getOrderId());
-        toAddInvoice.setUserId(orderEvent.getUserId());
-        toAddInvoice.setTotalPrice(orderEvent.getTotalPrice());
+    Invoice invoice = invoiceRepository.saveAndFlush(toAddInvoice);
 
-        Invoice invoice = invoiceRepository.saveAndFlush(toAddInvoice);
+    List<InvoiceItem> invoiceItems = orderEvent.getItems()
+        .stream()
+        .map(orderItem -> {
+          InvoiceItem invoiceItem = new InvoiceItem();
+          invoiceItem.setProductId(orderItem.getProductId());
+          invoiceItem.setQty(Long.valueOf(orderItem.getQuantity()));
+          invoiceItem.setPriceAtPurchase(orderItem.getUnitPrice());
+          invoiceItem.setProductName(orderItem.getProductName());
+          invoiceItem.setInvoice(invoice);
+          invoiceItem.setSubtotal(orderItem.getSubtotal());
 
-        List<InvoiceItem> invoiceItems = orderEvent.getItems()
-                .stream()
-                .map(orderItem -> {
-                    InvoiceItem invoiceItem = new InvoiceItem();
-                    invoiceItem.setProductId(orderItem.getProductId());
-                    invoiceItem.setQty(Long.valueOf(orderItem.getQuantity()));
-                    invoiceItem.setPriceAtPurchase(orderItem.getUnitPrice());
-                    invoiceItem.setProductName(orderItem.getProductName());
-                    invoiceItem.setInvoice(invoice);
-                    invoiceItem.setSubtotal(orderItem.getSubtotal());
+          return invoiceItem;
+        })
+        .toList();
 
-                    return invoiceItem;
-                })
-                .toList();
+    invoiceItemRepository.saveAll(invoiceItems);
 
-        invoiceItemRepository.saveAll(invoiceItems);
-
-        return invoice.getId();
-    }
+    return invoice.getId();
+  }
 }

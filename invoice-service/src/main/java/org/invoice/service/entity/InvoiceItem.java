@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name ="invoice_item")
+@Table(name = "invoice_item")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -12,20 +12,20 @@ import lombok.*;
 @Builder
 public class InvoiceItem {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private Long productId;
+  private Long productId;
 
-    private String productName;
+  private String productName;
 
-    private Long qty;
+  private Long qty;
 
-    private Double priceAtPurchase;
+  private Double priceAtPurchase;
 
-    private Double subtotal;
+  private Double subtotal;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Invoice invoice;
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Invoice invoice;
 }

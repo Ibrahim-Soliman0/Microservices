@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class InvoiceRestExceptionHandler {
 
-    @ExceptionHandler(exception = {InvoiceNotFoundException.class})
+    @ExceptionHandler(InvoiceNotFoundException.class)
     public ResponseEntity<String> handleException(InvoiceNotFoundException exception) {
 
         System.out.println("Invoice Not Found:\n" + exception.getMessage());

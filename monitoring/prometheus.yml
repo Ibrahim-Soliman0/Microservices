@@ -14,6 +14,7 @@ scrape_configs:
           - 'gateway-service:8060'
           - 'order-service:8082'
           - 'inventory-service:8081'
+          - 'invoice-service:8084'
           - 'oauth2:8085'
           - 'jwt-auth-service:8083'
           - 'user-service:7070'

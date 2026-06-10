@@ -87,7 +87,7 @@ services:
 
 
   rabbitmq:
-    image: rabbitmq:4.3.1-management
+    image: rabbitmq:3-management-alpine
     container_name: rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: root
@@ -101,17 +101,21 @@ services:
       timeout: 5s
       retries: 5
 
-  postgres:
-    image: postgres:16
-    container_name: invoice-postgres
+  mysql_invoice:
+    image: mysql:8.0
+    container_name: mysql_invoice
     environment:
-      POSTGRES_DB: invoice_db
-      POSTGRES_USER: invoice_user
-      POSTGRES_PASSWORD: 123
-    volumes:
-      - invoice-postgres-data:/var/lib/postgresql/data
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: invoice_db
     ports:
-      - "5432:5432"
+      - "3310:3306"
+    volumes:
+      - mysql_invoice_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p123456"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   order-service:
     build: ./order-service
@@ -134,13 +138,13 @@ services:
     build: ./invoice-service
     container_name: invoice-service
     ports:
-      - "8081:8081"
+      - "8084:8084"
     environment:
-      POSTGRES_HOST: invoice-postgres
+      MYSQL_HOST: mysql_invoice
       RABBITMQ_HOST: rabbitmq
       CONSUL_HOST: consul
     depends_on:
-      mysql_order:
+      mysql_invoice:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
@@ -255,8 +259,7 @@ services:
 
 volumes:
   mysql_order_data:
-  invoice-postgres-data:
-
   mysql_user_data:
   mysql_jwt_data:
   mysql_inventory_data:
+  mysql_invoice_data:

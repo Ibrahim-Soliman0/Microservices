@@ -30,6 +30,10 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/api/users/**
+        - id: invoice-service
+          uri: lb://invoice-service
+          predicates:
+            - Path=/invoices/**
 
 management:
   endpoints:
@@ -40,3 +44,9 @@ management:
     export:
       prometheus:
         enabled: true
+  tracing:
+    sampling:
+      probability: 1.0
+logging:
+  pattern:
+    level: "%5p [%X{traceId:-} %X{spanId:-}]"
