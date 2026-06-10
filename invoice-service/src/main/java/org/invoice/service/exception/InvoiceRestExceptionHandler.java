@@ -19,14 +19,14 @@ public class InvoiceRestExceptionHandler {
         return new ResponseEntity<>("Invoice Not Found", HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {
-        System.out.printf("Unexpected error: %s", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponse(LocalDateTime.now().toString(),
-                        HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                        "An unexpected error occurred"));
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {
+//        System.out.printf("Unexpected error: %s", ex.getMessage());
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                .body(new ErrorResponse(LocalDateTime.now().toString(),
+//                        HttpStatus.INTERNAL_SERVER_ERROR.value(),
+//                        "An unexpected error occurred"));
+//    }
 
     public record ErrorResponse(String timestamp, int status, String message) {}
 }
