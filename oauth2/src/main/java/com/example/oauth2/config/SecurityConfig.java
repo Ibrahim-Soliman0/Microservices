@@ -16,7 +16,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.web.client.RestClient;
 
 
 import java.io.IOException;
@@ -36,8 +35,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/",
-                                "/login"
-
+                                "/login",
+                                "/oauth2/**",
+                                "/api/auth/health"
                         ).permitAll()
                         .anyRequest().authenticated()   // everything else needs login
                 )
@@ -95,8 +95,4 @@ public class SecurityConfig {
         };
     }
 
-    @Bean
-    public RestClient restClient() {
-        return RestClient.create();
-    }
 }

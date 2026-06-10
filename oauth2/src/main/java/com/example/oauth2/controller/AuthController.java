@@ -1,8 +1,8 @@
 package com.example.oauth2.controller;
 
-
-import com.example.oauth2.model.User;
-import com.example.oauth2.repository.UserRepository;
+import com.example.oauth2.token.TokenGenerator;
+import com.example.oauth2.user.UserClient;
+import com.example.oauth2.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,8 @@ import java.util.Map;
 @Slf4j
 public class AuthController {
 
-    private final UserRepository userRepository;
+    private final UserClient userClient;
+    private final TokenGenerator tokenGenerator;
 
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser(
@@ -33,86 +34,67 @@ public class AuthController {
                     .body(Map.of("error", "Not logged in"));
         }
 
-        String email   = oAuth2User.getAttribute("email");
-        String token   = (String) session.getAttribute("ACCESS_TOKEN");
+        String email = oAuth2User.getAttribute("email");
+        String name = oAuth2User.getAttribute("name");
 
-        User user = userRepository.findByEmail(email).orElse(null);
+        // Create or find user in user-service
+        UserResponse user = userClient.createOrUpdateUser(
+                email, name, oAuth2User.getAttribute("picture"), "google");
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Failed to sync user"));
+        }
+
+        // Generate JWT token
+        String token = tokenGenerator.generateToken(oAuth2User);
+
+        // Store token in user-service
+        userClient.saveToken(user.getId(), token, "no-refresh");
+
+        // Store in session
+        session.setAttribute("ACCESS_TOKEN", token);
+        session.setAttribute("USER_EMAIL", email);
+        session.setAttribute("USER_NAME", name);
 
         return ResponseEntity.ok(Map.of(
-                "email",       email,
-                "name",        oAuth2User.getAttribute("name"),
-                "picture",     oAuth2User.getAttribute("picture"),
-                "token",       token != null ? token : "token-not-generated-yet",
-                "isNewUser",   user != null && user.isNewUser(),
-                "createdAt",   user != null ? user.getCreatedAt().toString() : "unknown",
-                "sessionId",   session.getId()
+                "id", user.getId(),
+                "email", email,
+                "name", name,
+                "picture", oAuth2User.getAttribute("picture"),
+                "token", token,
+                "sessionId", session.getId()
         ));
     }
 
-
-
     @GetMapping("/validate")
     public ResponseEntity<?> validateSession(HttpServletRequest request) {
-
         HttpSession session = request.getSession(false);
 
         if (session == null) {
-            log.warn("Validate called with no session");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of(
-                            "valid", false,
-                            "error", "No active session. User must login first."
-                    ));
+                    .body(Map.of("valid", false, "error", "No active session"));
         }
 
         String token = (String) session.getAttribute("ACCESS_TOKEN");
         String email = (String) session.getAttribute("USER_EMAIL");
-        String name  = (String) session.getAttribute("USER_NAME");
+        String name = (String) session.getAttribute("USER_NAME");
 
         if (token == null || email == null) {
-            log.warn("Session exists but has no token/email: sessionId={}", session.getId());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of(
-                            "valid", false,
-                            "error", "Session is incomplete. Please login again."
-                    ));
+                    .body(Map.of("valid", false, "error", "Incomplete session"));
         }
 
-        log.debug("Session validated for user: {}", email);
-
-
         return ResponseEntity.ok(Map.of(
-                "valid",  true,
-                "email",  email,
-                "name",   name,
-                "token",  token
+                "valid", true,
+                "email", email,
+                "name", name,
+                "token", token
         ));
     }
-
-
-    @GetMapping("/user/{email}")
-    public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
-
-        return userRepository.findByEmail(email)
-                .map(user -> ResponseEntity.ok(Map.of(
-                        "id",          user.getId(),
-                        "email",       user.getEmail(),
-                        "name",        user.getName(),
-                        "picture",     user.getPicture(),
-                        "provider",    user.getProvider(),
-                        "createdAt",   user.getCreatedAt().toString(),
-                        "lastLoginAt", user.getLastLoginAt().toString()
-                )))
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(Map.of("error", "User not found: " + email)));
-    }
-
 
     @GetMapping("/health")
     public ResponseEntity<?> health() {
-        return ResponseEntity.ok(Map.of(
-                "service", "auth-service",
-                "status",  "UP"
-        ));
+        return ResponseEntity.ok(Map.of("service", "auth-service", "status", "UP"));
     }
 }

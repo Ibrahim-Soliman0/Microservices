@@ -1,11 +1,15 @@
 package com.example.oauth2.token;
 
+import com.example.oauth2.model.TokenResponse;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
 
@@ -14,38 +18,36 @@ import java.util.Map;
 @Slf4j
 public class TokenGenerator {
 
-    private final RestClient restClient;
+    private final RestTemplate restTemplate;
 
     public String generateToken(OAuth2User oAuth2User) {
         String email = oAuth2User.getAttribute("email");
         String name = oAuth2User.getAttribute("name");
 
-       // TODO : how JWT takes data
-        Map<String, String> requestPayload = Map.of(
-                "email", email,
-                "name", name != null ? name : "Unknown",
+        Map<String, Object> requestPayload = Map.of(
+                "userId", 0L,
+                "username", name != null ? name : "Unknown",
                 "role", "ROLE_USER"
         );
 
         try {
-            log.info("Requesting token from external Token Service for: {}", email);
+            log.info("Requesting token from JWT service for: {}", email);
 
-            // TODO the service url
-            String targetUrl = "http://localhost:8082/api/tokens/generate";
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestPayload, headers);
 
+            ResponseEntity<TokenResponse> response = restTemplate.postForEntity(
+                    "http://jwt-auth-service/token/generate",
+                    request,
+                    TokenResponse.class
+            );
 
-            String tokenResponse = restClient.post()
-                    .uri(targetUrl)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .body(requestPayload)
-                    .retrieve()
-                    .body(String.class);
-
-            log.info("Successfully received token from external service.");
-            return tokenResponse;
+            log.info("Successfully received token from JWT service.");
+            return response.getBody() != null ? response.getBody().getToken() : "no-token";
 
         } catch (Exception e) {
-            log.error("Failed to reach Token Service. Is your teammate's service running?", e);
+            log.error("Failed to reach JWT service", e);
             return "fallback-token-service-down";
         }
     }

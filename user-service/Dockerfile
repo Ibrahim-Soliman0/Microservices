@@ -1,13 +1,12 @@
-FROM maven:3.9.6-eclipse-temurin-21 AS builder
-WORKDIR /app
+FROM maven:3.9-eclipse-temurin-17 AS build
+WORKDIR /build
 COPY pom.xml .
-COPY src ./src
-RUN mvn package -DskipTests -B
+RUN mvn dependency:go-offline -B -Dmaven.test.skip=true
+COPY src src
+RUN mvn package -Dmaven.test.skip=true
 
-
-FROM eclipse-temurin:21-jre-alpine
-WORKDIR /app
-COPY --from=builder /app/target/user-service-*.jar app.jar
-EXPOSE 7071
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+FROM eclipse-temurin:17-jre-alpine
+RUN apk add --no-cache curl
+COPY --from=build /build/target/*.jar app.jar
+EXPOSE 7070
+ENTRYPOINT ["java", "-jar", "/app.jar"]

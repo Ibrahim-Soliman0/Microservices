@@ -11,8 +11,10 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
     static_configs:
       - targets:
-          - 'discovery-service:8501'
           - 'gateway-service:8060'
           - 'order-service:8082'
-          - 'inventory-service:8082'
+          - 'inventory-service:8081'
+          - 'oauth2:8085'
+          - 'jwt-auth-service:8083'
+          - 'user-service:7070'
  

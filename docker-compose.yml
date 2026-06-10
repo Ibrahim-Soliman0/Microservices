@@ -14,19 +14,6 @@ services:
       timeout: 5s
       retries: 3
 
-  discovery-service:
-    build: ./services/discovery-service
-    container_name: discovery-service
-    ports:
-      - "8501:8501"
-    environment:
-      SPRING_CLOUD_CONSUL_HOST: consul
-      SPRING_CLOUD_CONSUL_PORT: 8500
-    depends_on:
-      consul:
-        condition: service_healthy
-
-
   gateway-service:
     build: ./services/gateway-service
     container_name: gateway-service
@@ -160,7 +147,116 @@ services:
       consul:
         condition: service_healthy
 
+  oauth2:
+    build: ./oauth2
+    container_name: oauth2
+    ports:
+      - "8085:8085"
+    environment:
+      CONSUL_HOST: consul
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+    depends_on:
+      consul:
+        condition: service_healthy
+
+  mysql_user:
+    image: mysql:8.0
+    container_name: mysql_user
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: userdb
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_user_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p123456"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    ports:
+      - "7070:7070"
+    environment:
+      CONSUL_HOST: consul
+      MYSQL_HOST: mysql_user
+    depends_on:
+      mysql_user:
+        condition: service_healthy
+      consul:
+        condition: service_healthy
+
+  mysql_jwt:
+    image: mysql:8.0
+    container_name: mysql_jwt
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: jwt_db
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_jwt_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p123456"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  jwt-auth-service:
+    build: ./JWT-auth-service
+    container_name: jwt-auth-service
+    ports:
+      - "8083:8083"
+    environment:
+      CONSUL_HOST: consul
+      MYSQL_HOST: mysql_jwt
+    depends_on:
+      mysql_jwt:
+        condition: service_healthy
+      consul:
+        condition: service_healthy
+
+  mysql_inventory:
+    image: mysql:8.0
+    container_name: mysql_inventory
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: inventorydb
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql_inventory_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p123456"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  inventory-service:
+    build: ./inventory-service
+    container_name: inventory-service
+    ports:
+      - "8081:8081"
+    environment:
+      CONSUL_HOST: consul
+      MYSQL_HOST: mysql_inventory
+      RABBITMQ_HOST: rabbitmq
+    depends_on:
+      mysql_inventory:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      consul:
+        condition: service_healthy
+
 volumes:
   mysql_order_data:
   invoice-postgres-data:
 
+  mysql_user_data:
+  mysql_jwt_data:
+  mysql_inventory_data:
