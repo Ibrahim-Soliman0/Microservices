@@ -95,8 +95,5 @@ public class SecurityConfig {
         };
     }
 
-    @Bean
-    public RestClient restClient() {
-        return RestClient.create();
-    }
+
 }
