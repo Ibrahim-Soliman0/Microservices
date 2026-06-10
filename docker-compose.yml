@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   consul:
     image: hashicorp/consul:1.18
@@ -83,8 +85,9 @@ services:
       timeout: 5s
       retries: 5
 
+
   rabbitmq:
-    image: rabbitmq:3-management-alpine
+    image: rabbitmq:4.3.1-management
     container_name: rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: root
@@ -98,6 +101,18 @@ services:
       timeout: 5s
       retries: 5
 
+  postgres:
+    image: postgres:16
+    container_name: invoice-postgres
+    environment:
+      POSTGRES_DB: invoice_db
+      POSTGRES_USER: invoice_user
+      POSTGRES_PASSWORD: 123
+    volumes:
+      - invoice-postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
   order-service:
     build: ./order-service
     container_name: order-service
@@ -105,6 +120,23 @@ services:
       - "8082:8082"
     environment:
       MYSQL_HOST: mysql_order
+      RABBITMQ_HOST: rabbitmq
+      CONSUL_HOST: consul
+    depends_on:
+      mysql_order:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      consul:
+        condition: service_healthy
+
+  invoice-service:
+    build: ./invoice-service
+    container_name: invoice-service
+    ports:
+      - "8081:8081"
+    environment:
+      POSTGRES_HOST: invoice-postgres
       RABBITMQ_HOST: rabbitmq
       CONSUL_HOST: consul
     depends_on:
@@ -223,6 +255,8 @@ services:
 
 volumes:
   mysql_order_data:
+  invoice-postgres-data:
+
   mysql_user_data:
   mysql_jwt_data:
   mysql_inventory_data:
