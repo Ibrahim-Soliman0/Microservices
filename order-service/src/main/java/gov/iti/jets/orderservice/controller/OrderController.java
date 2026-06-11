@@ -19,9 +19,15 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
+    private final io.micrometer.tracing.Tracer tracer;
+    private final io.micrometer.observation.ObservationRegistry observationRegistry;
 
     @PostMapping
     public ResponseEntity<OrderResponse> createOrder(@Valid @RequestBody CreateOrderRequest request){
+        log.info("[DEBUG-mdc] MDC map: {}", org.slf4j.MDC.getCopyOfContextMap());
+        log.info("[DEBUG-mdc] Tracer class: {}", tracer != null ? tracer.getClass().getName() : "null");
+        log.info("[DEBUG-mdc] ObservationRegistry class: {}", observationRegistry != null ? observationRegistry.getClass().getName() : "null");
+        log.info("[DEBUG-mdc] Current span: {}", tracer != null && tracer.currentSpan() != null ? tracer.currentSpan().context().traceId() : "null");
         log.info("POST /api/orders - userId={}", request.getUserId());
         OrderResponse response = orderService.createOrder(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

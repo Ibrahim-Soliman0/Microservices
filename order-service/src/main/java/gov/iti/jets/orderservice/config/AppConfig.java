@@ -1,5 +1,6 @@
 package gov.iti.jets.orderservice.config;
 
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +11,7 @@ public class AppConfig {
 
     @Bean
     @LoadBalanced
-    public RestTemplate restTemplate(){
-        return new RestTemplate();
+    public RestTemplate restTemplate(RestTemplateBuilder builder){
+        return builder.build();
     }
 }
